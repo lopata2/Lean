@@ -2202,7 +2202,7 @@ namespace QuantConnect.Algorithm
         /// <param name="newOrderEvent">The order event provider</param>
         public void SetOrderEventProvider(IOrderEventProvider newOrderEvent)
         {
-            newOrderEvent.NewOrderEvent += (sender, orderEvent)
+            newOrderEvent.NewPreProcessFillEvent += (sender, orderEvent)
                 => { EmitInsightBasedOnFill(orderEvent); };
         }
 
