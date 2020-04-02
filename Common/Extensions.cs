@@ -101,6 +101,11 @@ namespace QuantConnect
                             resultPacket.Orders = new List<Order>();
                         }
                         resultPacket.Orders.AddRange(resultPackets[i].Orders);
+
+                        // GroupBy guarantees to respect original order, so we want to get the last order instance per order id
+                        // this way we only keep the most updated version
+                        resultPacket.Orders = resultPacket.Orders.GroupBy(order => order.Id)
+                            .Select(ordersGroup => ordersGroup.Last()).ToList();
                     }
                 }
             }
